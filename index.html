@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="B. Mohan — Computer Science & Technology student, developer and builder.">
+    <meta name="author" content="B. Mohan">
+    <meta name="theme-color" content="#EDE7D9">
+    <title>B. Mohan — Computer Science & Technology</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <!-- Ambient drafting-grid canvas -->
+    <canvas id="bg"></canvas>
+
+    <!-- Registration marks (persistent frame) -->
+    <div class="reg-mark reg-tl"></div>
+    <div class="reg-mark reg-tr"></div>
+    <div class="reg-mark reg-bl"></div>
+    <div class="reg-mark reg-br"></div>
+
+    <!-- Crosshair cursor -->
+    <div class="reticle" id="reticle"><span class="dot"></span></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">B.<span class="accent">MOHAN</span></div>
+        <ul class="nav-links">
+            <li><a href="#home"><span class="idx">01</span>Home</a></li>
+            <li><a href="#about"><span class="idx">02</span>Profile</a></li>
+            <li><a href="#projects"><span class="idx">03</span>Projects</a></li>
+            <li><a href="#education"><span class="idx">04</span>Education</a></li>
+            <li><a href="#skills"><span class="idx">05</span>Specs</a></li>
+            <li><a href="#contact"><span class="idx">06</span>Contact</a></li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <!-- Hero / Sheet 01 -->
+    <section id="home" class="hero">
+        <div class="hero-frame">
+            <p class="hero-eyebrow">SHEET 01 — COVER</p>
+            <div class="hero-content">
+                <h1><span class="reveal-line">B. MOHAN</span><span class="reveal-line">/CST</span></h1>
+            </div>
+            <div class="hero-sub reveal">
+                <div>
+                    <span>DISCIPLINE</span>
+                    Computer Science &amp; Technology
+                </div>
+                <div>
+                    <span>INSTITUTION</span>
+                    Madanapalle Institute of Technology &amp; Science
+                </div>
+                <div>
+                    <span>LOCATION</span>
+                    Madanapalle, India
+                </div>
+            </div>
+            <a href="#about" class="btn-primary reveal">OPEN PROFILE →</a>
+            <div class="social-links reveal">
+                <a href="mailto:balamurugun530@gmail.com">EMAIL ↗</a>
+                <a href="https://github.com/Mohan-das457" target="_blank" rel="noopener">GITHUB ↗</a>
+                <a href="https://www.linkedin.com/in/bala-murugan-mohan-47086238a/" target="_blank" rel="noopener">LINKEDIN ↗</a>
+            </div>
+        </div>
+        <div class="hero-footer">
+            <div>DRAWN BY B.MOHAN · SCALE 1:1</div>
+            <div class="scroll-cue">
+                SCROLL
+                <span class="line"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Sheet 02 -->
+    <section id="about">
+        <div class="section-wrapper">
+            <p class="sheet-label">SHEET 02 — PROFILE</p>
+            <h2 class="section-title">About <span class="accent">Me</span></h2>
+            <div class="about-grid">
+                <div class="about-card reveal-3d">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="panel-tag">01 / WHO I AM</span>
+                            <h3>Who I Am</h3>
+                            <p>I'm a Computer Science &amp; Technology student at MITS, working through how systems are built from the ground up — from data structures to the interfaces people actually touch.</p>
+                            <p class="flip-hint">HOVER TO FLIP →</p>
+                        </div>
+                        <div class="card-back">
+                            <span class="panel-tag">02 / APPROACH</span>
+                            <h3>My Mission</h3>
+                            <p>Build things precisely, document them clearly, and keep iterating until the tolerances are right — in code and in everything else.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat reveal">
+                        <p>Curiosity</p>
+                        <div class="stat-value"><h3 class="counter" data-target="100">0</h3><span class="unit">PCT</span></div>
+                    </div>
+                    <div class="stat reveal">
+                        <p>Learning window</p>
+                        <div class="stat-value"><h3 class="counter" data-target="24">0</h3><span class="unit">HRS/DAY</span></div>
+                    </div>
+                    <div class="stat reveal">
+                        <p>Coffee runs</p>
+                        <div class="stat-value"><h3 class="counter" data-target="7">0</h3><span class="unit">PER WK</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects / Sheet 03 -->
+    <section id="projects"><div class="section-wrapper"><p class="sheet-label">SHEET 03 — PROJECT REGISTER</p><h2 class="section-title">Selected <span class="accent">Projects</span></h2><div class="project-grid">
+<article class="project-card reveal"><div class="project-top"><span class="panel-tag">PROJECT / 01</span><span class="project-status">ACTIVE</span></div><h3>NearKart</h3><p>A local marketplace concept connecting customers and sellers through a focused Flutter application experience.</p><div class="project-tech"><span>FLUTTER</span><span>DART</span><span>MOBILE</span></div><a href="https://github.com/Mohan-das457" target="_blank" rel="noopener">VIEW GITHUB →</a></article>
+<article class="project-card reveal"><div class="project-top"><span class="panel-tag">PROJECT / 02</span><span class="project-status">BUILD</span></div><h3>Attendance System</h3><p>A full-stack attendance project with a Node/Express backend and Vite React frontend.</p><div class="project-tech"><span>REACT</span><span>NODE</span><span>EXPRESS</span></div><a href="https://github.com/Mohan-das457" target="_blank" rel="noopener">VIEW GITHUB →</a></article>
+<article class="project-card reveal"><div class="project-top"><span class="panel-tag">PROJECT / 03</span><span class="project-status">DESIGN</span></div><h3>Invicta</h3><p>A college fest website concept focused on event presentation, branding and interactive web design.</p><div class="project-tech"><span>WEB</span><span>VITE</span><span>UI</span></div><a href="https://github.com/Mohan-das457" target="_blank" rel="noopener">VIEW GITHUB →</a></article>
+</div></div></section>
+
+    <!-- Education / Sheet 04 -->
+    <section id="education"><div class="section-wrapper"><p class="sheet-label">SHEET 04 — ACADEMIC RECORD</p><h2 class="section-title">Education <span class="accent">&amp; Path</span></h2><div class="timeline">
+<div class="timeline-item reveal"><span class="timeline-index">01</span><div><span class="timeline-date">CURRENT</span><h3>B.Tech — Computer Science &amp; Technology</h3><p>Madanapalle Institute of Technology &amp; Science (MITS), Madanapalle, India.</p></div></div>
+<div class="timeline-item reveal"><span class="timeline-index">02</span><div><span class="timeline-date">FOCUS</span><h3>Software &amp; Application Development</h3><p>Building practical projects while developing programming, web, mobile and problem-solving skills.</p></div></div>
+<div class="timeline-item reveal"><span class="timeline-index">03</span><div><span class="timeline-date">NEXT</span><h3>Build → Learn → Iterate</h3><p>Continuing to explore full-stack development, Flutter and modern software engineering workflows.</p></div></div>
+</div></div></section>
+
+    <!-- Skills / Sheet 03 -->
+    <section id="skills">
+        <div class="section-wrapper">
+            <p class="sheet-label">SHEET 05 — SPECIFICATIONS</p>
+            <h2 class="section-title">Tech <span class="accent">Stack</span></h2>
+            <div class="spec-table">
+                <div class="skill-bar reveal">
+                    <p><span class="skill-index">A.1</span>Web Development</p>
+                    <div class="bar"><div class="fill" data-level="85"></div></div>
+                    <span class="skill-value">85%</span>
+                </div>
+                <div class="skill-bar reveal">
+                    <p><span class="skill-index">A.2</span>Programming</p>
+                    <div class="bar"><div class="fill" data-level="80"></div></div>
+                    <span class="skill-value">80%</span>
+                </div>
+                <div class="skill-bar reveal">
+                    <p><span class="skill-index">A.3</span>Problem Solving</p>
+                    <div class="bar"><div class="fill" data-level="90"></div></div>
+                    <span class="skill-value">90%</span>
+                </div>
+                <div class="skill-bar reveal">
+                    <p><span class="skill-index">A.4</span>Systems &amp; Tooling</p>
+                    <div class="bar"><div class="fill" data-level="75"></div></div>
+                    <span class="skill-value">75%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Sheet 04 -->
+    <section id="contact">
+        <div class="section-wrapper">
+            <p class="sheet-label">SHEET 06 — CORRESPONDENCE</p>
+            <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
+            <div class="contact-grid">
+                <div>
+                    <p style="font-family: var(--mono); color: var(--ink-soft); line-height: 1.8; max-width: 46ch;">Have an idea or want to collaborate? I'm always up for exploring something new.</p>
+                    <div class="contact-info">
+                        <div class="row"><span class="k">LOCATION</span><span>Madanapalle, India</span></div>
+                        <div class="row"><span class="k">DEPT</span><span>MITS — CST Department</span></div>
+                        <div class="row"><span class="k">EMAIL</span><span>balamurugun530@gmail.com</span></div>
+                    </div>
+                    <div class="contact-social"><a href="https://github.com/Mohan-das457" target="_blank" rel="noopener">GITHUB ↗</a><a href="https://www.linkedin.com/in/bala-murugan-mohan-47086238a/" target="_blank" rel="noopener">LINKEDIN ↗</a><a href="mailto:balamurugun530@gmail.com">EMAIL ↗</a></div>
+                    <div class="title-block">
+                        <div><span>SHEET</span><strong>06 OF 06</strong></div>
+                        <div><span>REV</span><strong>A</strong></div>
+                        <div><span>STATUS</span><strong style="color: var(--stamp);">OPEN</strong></div>
+                    </div>
+                </div>
+                <div class="contact-card reveal-3d">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="panel-tag">CONTACT CARD</span>
+                            <h3>Let's Connect!</h3>
+                            <p>Drop a message and I'll get back to you — flip for the form.</p>
+                            <p class="flip-hint">HOVER TO FLIP →</p>
+                        </div>
+                        <div class="card-back">
+                            <span class="panel-tag">SEND MESSAGE</span>
+                            <form>
+                                <div class="field">
+                                    <label>NAME</label>
+                                    <input type="text" placeholder="Your name" required>
+                                </div>
+                                <div class="field">
+                                    <label>EMAIL</label>
+                                    <input type="email" placeholder="you@example.com" required>
+                                </div>
+                                <div class="field">
+                                    <label>MESSAGE</label>
+                                    <textarea placeholder="What's on your mind?" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary">SEND →</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 B. MOHAN — DRAWING SET COMPLETE, 6 OF 6 SHEETS</p>
+    </footer>
+
+    <!-- Bottom title-block HUD -->
+    <div class="sheet-hud">
+        <span id="hud-section">01 · HOME</span>
+        <div class="progress-track"><div class="progress-fill" id="hud-progress"></div></div>
+        <span id="hud-scale">SCALE 1:1</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
