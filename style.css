@@ -430,9 +430,10 @@ section {
 /* ===== ABOUT ===== */
 .about-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, 720px);
+    gap: 0;
     align-items: start;
+    justify-content: center;
 }
 
 .about-card {
@@ -554,6 +555,101 @@ section {
     font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 1px;
+}
+
+/* ===== PROJECTS (BUILDS) ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+}
+
+.project-card {
+    background: var(--paper);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background 0.25s;
+}
+
+.project-card:hover {
+    background: var(--accent-soft);
+}
+
+.project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mono-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+}
+
+.project-status {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    color: var(--ink-faint);
+    border: 1px dashed var(--rule);
+    padding: 3px 8px;
+}
+
+.project-card h3 {
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    flex-grow: 1;
+}
+
+.project-stack {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+}
+
+.project-stack span {
+    display: block;
+    color: var(--ink-faint);
+    letter-spacing: 1.5px;
+    font-size: 0.62rem;
+    margin-bottom: 4px;
+}
+
+.project-stack p {
+    color: var(--ink-soft);
+}
+
+.project-link {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    align-self: flex-start;
+    padding-bottom: 2px;
+    transition: 0.2s;
+}
+
+.project-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+@media screen and (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== SKILLS (spec sheet) ===== */
@@ -758,12 +854,6 @@ footer {
     clip-path: inset(0 0 0 0);
 }
 
-
-/* ===== EXTENDED PORTFOLIO ===== */
-.social-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-family:var(--mono);font-size:.7rem;letter-spacing:1.5px}.social-links a,.contact-social a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:4px;transition:.25s}.social-links a:hover,.contact-social a:hover{color:var(--accent);border-color:var(--accent)}
-.project-grid,.roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project-card,.roadmap-card{background:var(--paper-dim);border:1px solid var(--rule);padding:28px;min-height:300px;display:flex;flex-direction:column;transition:.3s}.project-card:hover,.roadmap-card:hover{transform:translateY(-5px);border-color:var(--accent)}.project-top{display:flex;justify-content:space-between;gap:12px}.project-status,.timeline-date{font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;color:var(--stamp)}.project-card h3,.roadmap-card h3,.timeline-item h3{font-family:var(--mono);text-transform:uppercase;font-size:1.3rem;margin:22px 0 14px}.project-card p,.roadmap-card p,.timeline-item p{color:var(--ink-soft);line-height:1.7;font-size:.92rem}.project-tech{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding:22px 0 18px}.project-tech span{font-family:var(--mono);font-size:.6rem;letter-spacing:1px;border:1px solid var(--rule);padding:5px 7px}.project-card>a{color:var(--accent);font-family:var(--mono);font-size:.68rem;text-decoration:none;letter-spacing:1px}.timeline{border-left:1px solid var(--rule);margin-left:10px}.timeline-item{display:grid;grid-template-columns:54px 1fr;gap:22px;padding:0 0 44px}.timeline-index{width:30px;height:30px;margin-left:-16px;background:var(--paper);border:1px solid var(--accent);color:var(--accent);display:grid;place-items:center;font-family:var(--mono);font-size:.65rem}.timeline-item h3{margin-top:8px}.roadmap-card{min-height:230px}.contact-social{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px;font-family:var(--mono);font-size:.68rem;letter-spacing:1px}.contact-info .row a{color:inherit;text-decoration:none}.contact-info .row a:hover{color:var(--accent)}
-@media screen and (max-width:900px){.project-grid,.roadmap-grid{grid-template-columns:1fr}}@media screen and (max-width:640px){.social-links{gap:12px}}
-
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 900px) {
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
@@ -805,8 +895,19 @@ footer {
     .sheet-hud { padding: 10px 16px; font-size: 0.6rem; }
 }
 
-
-/* Contact links — same visual language, no layout redesign */
-.contact-socials { margin-top: 24px; display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 1.5px; }
-.contact-socials a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 5px; transition: 0.25s; }
-.contact-socials a:hover { color: var(--accent); border-color: var(--accent); }
+/* ===== PRINT / "PLOT" LAYOUT ===== */
+@media print {
+    #bg, .reg-mark, .reticle, .sheet-hud, nav, .scroll-cue,
+    .flip-hint {
+        display: none !important;
+    }
+    body { background: #fff; }
+    section { border-bottom: 1px solid #ccc; padding: 30px 10px; break-inside: avoid; }
+    .card-inner, .about-card, .contact-card { height: auto !important; transform: none !important; }
+    .card-front, .card-back {
+        position: relative !important;
+        transform: none !important;
+        page-break-inside: avoid;
+    }
+    .card-back { background: #eee !important; color: #111 !important; }
+}

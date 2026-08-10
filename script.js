@@ -172,8 +172,9 @@ const hudProgress = document.getElementById('hud-progress');
 const sheetNames = {
     home: '01 · HOME',
     about: '02 · PROFILE',
-    skills: '03 · SPECS',
-    contact: '04 · CONTACT'
+    projects: '03 · BUILDS',
+    skills: '04 · SPECS',
+    contact: '05 · CONTACT'
 };
 const sections = document.querySelectorAll('section[id]');
 
@@ -192,6 +193,32 @@ window.addEventListener('scroll', () => {
     hudProgress.style.left = `calc(${(pct * 100).toFixed(1)}% - 4px)`;
 });
 
+// ===== LIVE LOCAL TIME (Madanapalle, India) =====
+const clockEl = document.getElementById('live-clock');
+function updateClock() {
+    if (!clockEl) return;
+    const now = new Date();
+    clockEl.textContent = now.toLocaleTimeString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+}
+updateClock();
+setInterval(updateClock, 1000);
 
-/* ===== PORTFOLIO EXTENSIONS ===== */
-document.addEventListener('DOMContentLoaded',()=>{const form=document.querySelector('#contact form');if(form){form.addEventListener('submit',e=>{e.preventDefault();const n=form.querySelector('input[type=text]')?.value.trim()||'Visitor',em=form.querySelector('input[type=email]')?.value.trim()||'',m=form.querySelector('textarea')?.value.trim()||'';location.href=`mailto:balamurugun530@gmail.com?subject=${encodeURIComponent('Portfolio message from '+n)}&body=${encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m)}`})}});
+// ===== "PRESS P TO PLOT" EASTER EGG =====
+const hudScale = document.getElementById('hud-scale');
+document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() !== 'p') return;
+    const tag = document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (hudScale) {
+        const original = hudScale.textContent;
+        hudScale.textContent = 'PLOTTING…';
+        setTimeout(() => { hudScale.textContent = original; }, 1600);
+    }
+    window.print();
+});
