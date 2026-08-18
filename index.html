@@ -3,241 +3,632 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B. Mohan — Computer Science & Technology</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="B. Mohan — Computer Science & Technology Student at MITS Madanapalle. Full-Stack Web Developer, Systems Architect & UI/UX Designer.">
+    <title>B. Mohan — Computer Science & Technology | 3D Interactive Portfolio</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Ambient drafting-grid canvas -->
-    <canvas id="bg"></canvas>
+    <!-- 3D Three.js Interactive Canvas -->
+    <canvas id="three-canvas"></canvas>
 
-    <!-- Registration marks (persistent frame) -->
-    <div class="reg-mark reg-tl"></div>
-    <div class="reg-mark reg-tr"></div>
-    <div class="reg-mark reg-bl"></div>
-    <div class="reg-mark reg-br"></div>
+    <!-- Custom Futuristic Reticle Cursor -->
+    <div class="reticle" id="reticle">
+        <span class="dot"></span>
+        <span class="ring"></span>
+    </div>
 
-    <!-- Crosshair cursor -->
-    <div class="reticle" id="reticle"><span class="dot"></span></div>
+    <!-- Registration & Grid Marks -->
+    <div class="hud-corner hud-tl">SYS.01 // READY</div>
+    <div class="hud-corner hud-tr">LOC: 13.55°N 78.50°E</div>
+    <div class="hud-corner hud-bl">MITS CST // BATCH 2K26</div>
+    <div class="hud-corner hud-br">FPS: <span id="fps-counter">60</span></div>
 
-    <!-- Navigation -->
+    <!-- Navigation Header -->
     <nav id="navbar">
-        <div class="logo">B.M<span class="accent">OHAN</span></div>
+        <div class="logo">
+            <span class="logo-symbol">&lt;/&gt;</span>
+            <span class="logo-text">B.M<span class="accent">OHAN</span></span>
+            <span class="badge-tag">CST @ MITS</span>
+        </div>
+        
         <ul class="nav-links">
-            <li><a href="#home"><span class="idx">01</span>Home</a></li>
-            <li><a href="#about"><span class="idx">02</span>Profile</a></li>
-            <li><a href="#projects"><span class="idx">03</span>Builds</a></li>
-            <li><a href="#skills"><span class="idx">04</span>Specs</a></li>
-            <li><a href="#contact"><span class="idx">05</span>Contact</a></li>
+            <li><a href="#home"><span class="idx">01</span>// Home</a></li>
+            <li><a href="#about"><span class="idx">02</span>// Profile</a></li>
+            <li><a href="#projects"><span class="idx">03</span>// Builds</a></li>
+            <li><a href="#skills"><span class="idx">04</span>// Specs</a></li>
+            <li><a href="#achievements"><span class="idx">05</span>// Honors</a></li>
+            <li><a href="#contact"><span class="idx">06</span>// Contact</a></li>
         </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+
+        <div class="nav-actions">
+            <!-- 3D Theme Switcher Button -->
+            <button id="theme-toggle" class="icon-btn" title="Switch 3D Background Style" aria-label="Switch 3D Theme">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 2a10 10 0 0 0 0 20z"></path>
+                </svg>
+                <span id="theme-name">3D: CYBER</span>
+            </button>
+
+            <!-- Audio Sound FX Toggle -->
+            <button id="sound-toggle" class="icon-btn" title="Toggle UI Audio Synth" aria-label="Toggle Audio">
+                <svg id="sound-icon" class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span class="sound-status">FX ON</span>
+            </button>
+
+            <!-- Command Palette Trigger Button -->
+            <button id="cmd-btn" class="cmd-trigger-btn" title="Open Interactive CLI (Ctrl + K)">
+                <span class="cmd-icon">&gt;_</span>
+                <span class="cmd-text">CLI</span>
+                <kbd>Ctrl+K</kbd>
+            </button>
+
+            <!-- Mobile Burger -->
+            <div class="burger" id="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero / Sheet 01 -->
-    <section id="home" class="hero">
-        <div class="hero-frame">
-            <p class="hero-eyebrow">SHEET 01 — COVER</p>
-            <div class="hero-content">
-                <h1><span class="reveal-line">B. MOHAN</span><span class="reveal-line">/CST</span></h1>
-            </div>
-            <div class="hero-sub reveal">
-                <div>
-                    <span>DISCIPLINE</span>
-                    Computer Science &amp; Technology
+    <!-- Main Content Container -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="home" class="hero-section">
+            <div class="hero-container">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    <span>AVAILABLE FOR INNOVATIVE BUILDS & RESEARCH</span>
                 </div>
-                <div>
-                    <span>INSTITUTION</span>
-                    Madanapalle Institute of Technology &amp; Science
-                </div>
-                <div>
-                    <span>LOCATION</span>
-                    Madanapalle, India
-                </div>
-                <div>
-                    <span>LOCAL TIME</span>
-                    <span id="live-clock">--:--:--</span>
-                </div>
-            </div>
-            <a href="#about" class="btn-primary reveal">OPEN PROFILE →</a>
-        </div>
-        <div class="hero-footer">
-            <div>DRAWN BY B.MOHAN · SCALE 1:1</div>
-            <div class="scroll-cue">
-                SCROLL
-                <span class="line"></span>
-            </div>
-        </div>
-    </section>
+                
+                <h1 class="hero-title">
+                    <span class="line-1">BUILDING THE</span>
+                    <span class="line-2 gradient-text">FUTURE OF TECH</span>
+                </h1>
 
-    <!-- About / Sheet 02 -->
-    <section id="about">
-        <div class="section-wrapper">
-            <p class="sheet-label">SHEET 02 — PROFILE</p>
-            <h2 class="section-title">About <span class="accent">Me</span></h2>
-            <div class="about-grid">
-                <div class="about-card reveal-3d">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <span class="panel-tag">01 / WHO I AM</span>
-                            <h3>Who I Am</h3>
-                            <p>I'm a Computer Science &amp; Technology student at MITS, working through how systems are built from the ground up — from data structures to the interfaces people actually touch.</p>
-                            <p class="flip-hint">HOVER TO FLIP →</p>
+                <div class="hero-typewriter">
+                    <span class="type-prefix">&gt; </span>
+                    <span id="typewriter-text"></span>
+                    <span class="type-cursor">|</span>
+                </div>
+
+                <p class="hero-description">
+                    Computer Science & Technology student at <strong>Madanapalle Institute of Technology & Science</strong>. Crafting ultra-responsive web applications, high-performance algorithms, and modern interactive digital experiences.
+                </p>
+
+                <div class="hero-cta-group">
+                    <a href="#projects" class="btn-primary glow-btn">
+                        <span>EXPLORE BUILDS</span>
+                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <span>GET IN TOUCH</span>
+                    </a>
+                    <button id="hero-cmd-btn" class="btn-tertiary">
+                        <span>LAUNCH CLI</span>
+                    </button>
+                </div>
+
+                <!-- Hero Metrics Ticker -->
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="15">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">PROJECTS BUILT</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="8">0</span><span class="stat-plus">+</span>
+                        <span class="stat-label">TECH MASTRIES</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <span class="stat-number" data-target="100">0</span><span class="stat-plus">%</span>
+                        <span class="stat-label">CODE COMMITMENT</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-box">
+                        <span class="stat-value-text" id="live-ist-clock">--:--:--</span>
+                        <span class="stat-label">IST (MADANAPALLE)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="section-padding">
+            <div class="section-wrapper">
+                <div class="section-header">
+                    <span class="section-tag">// 02. ARCHITECTURE & PROFILE</span>
+                    <h2 class="section-heading">Driven by <span class="gradient-text">Precision</span></h2>
+                </div>
+
+                <div class="about-grid">
+                    <!-- 3D Parallax Card 1 -->
+                    <div class="tilt-card glass-panel" data-tilt>
+                        <div class="tilt-card-content">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </div>
+                            <span class="card-mono-tag">SPEC // WHO I AM</span>
+                            <h3>Engineering Mindset</h3>
+                            <p>
+                                I am an enthusiastic Computer Science & Engineering student at <strong>MITS Madanapalle</strong> with a strong foundation in data structures, web architectures, and full-stack solutions.
+                            </p>
+                            <p>
+                                I thrive on transforming complex domain challenges into sleek, human-centered digital products with top-tier performance.
+                            </p>
+                            <div class="card-footer-tags">
+                                <span>#FullStack</span>
+                                <span>#Algorithms</span>
+                                <span>#Web3D</span>
+                            </div>
                         </div>
-                        <div class="card-back">
-                            <span class="panel-tag">02 / APPROACH</span>
-                            <h3>My Mission</h3>
-                            <p>Build things precisely, document them clearly, and keep iterating until the tolerances are right — in code and in everything else.</p>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Projects / Sheet 03 -->
-    <section id="projects">
-        <div class="section-wrapper">
-            <p class="sheet-label">SHEET 03 — BUILDS</p>
-            <h2 class="section-title">Selected <span class="accent">Builds</span></h2>
-            <div class="projects-grid">
-                <div class="project-card reveal">
-                    <div class="project-head">
-                        <span class="mono-tag">BUILD / 01</span>
-                        <span class="project-status">EDIT ME</span>
-                    </div>
-                    <h3>Project Name</h3>
-                    <p>Describe what it does, the problem it solves, and the stack you used — one or two sentences is enough.</p>
-                    <div class="project-stack">
-                        <span>STACK</span>
-                        <p>e.g. React · Node · MongoDB</p>
-                    </div>
-                    <a href="#" class="project-link">VIEW REPO →</a>
-                </div>
-                <div class="project-card reveal">
-                    <div class="project-head">
-                        <span class="mono-tag">BUILD / 02</span>
-                        <span class="project-status">EDIT ME</span>
-                    </div>
-                    <h3>Project Name</h3>
-                    <p>Describe what it does, the problem it solves, and the stack you used — one or two sentences is enough.</p>
-                    <div class="project-stack">
-                        <span>STACK</span>
-                        <p>e.g. Python · Pandas</p>
-                    </div>
-                    <a href="#" class="project-link">VIEW REPO →</a>
-                </div>
-                <div class="project-card reveal">
-                    <div class="project-head">
-                        <span class="mono-tag">BUILD / 03</span>
-                        <span class="project-status">EDIT ME</span>
-                    </div>
-                    <h3>Project Name</h3>
-                    <p>Describe what it does, the problem it solves, and the stack you used — one or two sentences is enough.</p>
-                    <div class="project-stack">
-                        <span>STACK</span>
-                        <p>e.g. Java · MySQL</p>
-                    </div>
-                    <a href="#" class="project-link">VIEW REPO →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills / Sheet 03 -->
-    <section id="skills">
-        <div class="section-wrapper">
-            <p class="sheet-label">SHEET 04 — SPECIFICATIONS</p>
-            <h2 class="section-title">Tech <span class="accent">Stack</span></h2>
-            <div class="spec-table">
-                <div class="skill-bar reveal">
-                    <p><span class="skill-index">A.1</span>Web Development</p>
-                    <div class="bar"><div class="fill" data-level="85"></div></div>
-                    <span class="skill-value">85%</span>
-                </div>
-                <div class="skill-bar reveal">
-                    <p><span class="skill-index">A.2</span>Programming</p>
-                    <div class="bar"><div class="fill" data-level="80"></div></div>
-                    <span class="skill-value">80%</span>
-                </div>
-                <div class="skill-bar reveal">
-                    <p><span class="skill-index">A.3</span>Problem Solving</p>
-                    <div class="bar"><div class="fill" data-level="90"></div></div>
-                    <span class="skill-value">90%</span>
-                </div>
-                <div class="skill-bar reveal">
-                    <p><span class="skill-index">A.4</span>Systems &amp; Tooling</p>
-                    <div class="bar"><div class="fill" data-level="75"></div></div>
-                    <span class="skill-value">75%</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact / Sheet 04 -->
-    <section id="contact">
-        <div class="section-wrapper">
-            <p class="sheet-label">SHEET 05 — CORRESPONDENCE</p>
-            <h2 class="section-title">Get In <span class="accent">Touch</span></h2>
-            <div class="contact-grid">
-                <div>
-                    <p style="font-family: var(--mono); color: var(--ink-soft); line-height: 1.8; max-width: 46ch;">Have an idea or want to collaborate? I'm always up for exploring something new.</p>
-                    <div class="contact-info">
-                        <div class="row"><span class="k">LOCATION</span><span>Madanapalle, India</span></div>
-                        <div class="row"><span class="k">DEPT</span><span>MITS — CST Department</span></div>
-                        <div class="row"><span class="k">EMAIL</span><span>your.email@example.com</span></div>
-                    </div>
-                    <div class="title-block">
-                        <div><span>SHEET</span><strong>05 OF 05</strong></div>
-                        <div><span>REV</span><strong>A</strong></div>
-                        <div><span>STATUS</span><strong style="color: var(--stamp);">OPEN</strong></div>
-                    </div>
-                </div>
-                <div class="contact-card reveal-3d">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <span class="panel-tag">CONTACT CARD</span>
-                            <h3>Let's Connect!</h3>
-                            <p>Drop a message and I'll get back to you — flip for the form.</p>
-                            <p class="flip-hint">HOVER TO FLIP →</p>
-                        </div>
-                        <div class="card-back">
-                            <span class="panel-tag">SEND MESSAGE</span>
-                            <form>
-                                <div class="field">
-                                    <label>NAME</label>
-                                    <input type="text" placeholder="Your name" required>
+                    <!-- 3D Parallax Card 2 -->
+                    <div class="tilt-card glass-panel" data-tilt>
+                        <div class="tilt-card-content">
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                            </div>
+                            <span class="card-mono-tag">ACADEMIC // ALMA MATER</span>
+                            <h3>MITS Madanapalle</h3>
+                            <div class="edu-detail">
+                                <div class="edu-row">
+                                    <span class="edu-key">DEGREE</span>
+                                    <span class="edu-val">B.Tech — Computer Science & Technology</span>
                                 </div>
-                                <div class="field">
-                                    <label>EMAIL</label>
-                                    <input type="email" placeholder="you@example.com" required>
+                                <div class="edu-row">
+                                    <span class="edu-key">COLLEGE</span>
+                                    <span class="edu-val">Madanapalle Institute of Technology & Science</span>
                                 </div>
-                                <div class="field">
-                                    <label>MESSAGE</label>
-                                    <textarea placeholder="What's on your mind?" rows="3" required></textarea>
+                                <div class="edu-row">
+                                    <span class="edu-key">BATCH</span>
+                                    <span class="edu-val">2023 — 2027</span>
                                 </div>
-                                <button type="submit" class="btn-primary">SEND →</button>
-                            </form>
+                                <div class="edu-row">
+                                    <span class="edu-key">FOCUS</span>
+                                    <span class="edu-val">Software Design, Web Tech, Database Systems</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Timeline -->
+                <div class="timeline-container">
+                    <h3 class="timeline-title">Key Milestones & Journey</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-panel">
+                                <span class="timeline-date">2026 — PRESENT</span>
+                                <h4>Lead Web Platform Architect — Invicta 2K26</h4>
+                                <p>Designed and built the official web platform for MITS Tech Fest <em>Invicta 2K26</em> handling registration flows, event scheduling, and real-time announcements.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-panel">
+                                <span class="timeline-date">2025 — 2026</span>
+                                <h4>Creator — NearKart Hyperlocal Platform</h4>
+                                <p>Engineered a hyperlocal store aggregator allowing local shopkeepers to display inventory and customers in Madanapalle to order seamlessly.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content glass-panel">
+                                <span class="timeline-date">2024 — 2025</span>
+                                <h4>Developer — Smart College Attendance App</h4>
+                                <p>Built an automated attendance tracking application for college labs and lectures with real-time reporting dashboards.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
+        <!-- PROJECTS / BUILDS SECTION -->
+        <section id="projects" class="section-padding">
+            <div class="section-wrapper">
+                <div class="section-header">
+                    <span class="section-tag">// 03. FEATURED BUILDS</span>
+                    <h2 class="section-heading">Engineered <span class="gradient-text">Projects</span></h2>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" data-filter="all">ALL BUILDS</button>
+                    <button class="filter-btn" data-filter="web">WEB APPS</button>
+                    <button class="filter-btn" data-filter="college">COLLEGE TECH</button>
+                    <button class="filter-btn" data-filter="systems">SYSTEMS</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid" id="projects-container">
+                    <!-- Project Card 1: Invicta 2K26 -->
+                    <article class="project-card tilt-card glass-panel" data-category="college web" data-tilt>
+                        <div class="project-banner project-bg-invicta">
+                            <div class="banner-overlay"></div>
+                            <span class="project-badge">FEATURED // COLLEGE</span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-header-row">
+                                <span class="mono-id">BUILD / 01</span>
+                                <span class="status-pill status-live">● LIVE PLATFORM</span>
+                            </div>
+                            <h3>Invicta 2K26</h3>
+                            <p>Official web portal for MITS College National Tech Fest. Features event registrations, schedule timelines, live winner announcements, and interactive team showcases.</p>
+                            
+                            <div class="tech-stack-list">
+                                <span>HTML5</span>
+                                <span>CSS3 Blueprint</span>
+                                <span>JavaScript</span>
+                                <span>Canvas API</span>
+                            </div>
+
+                            <div class="project-actions">
+                                <a href="https://github.com/Mohan-das457/invicta-2k26" target="_blank" rel="noopener noreferrer" class="btn-project-link">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                                    <span>GITHUB REPO</span>
+                                </a>
+                                <button class="btn-detail-modal" data-project="invicta">DETAILS →</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 2: NearKart -->
+                    <article class="project-card tilt-card glass-panel" data-category="web systems" data-tilt>
+                        <div class="project-banner project-bg-nearkart">
+                            <div class="banner-overlay"></div>
+                            <span class="project-badge">COMMERCE</span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-header-row">
+                                <span class="mono-id">BUILD / 02</span>
+                                <span class="status-pill status-live">● COMPLETED</span>
+                            </div>
+                            <h3>NearKart</h3>
+                            <p>Hyperlocal retail connector platform enabling neighbourhood shops to list products, accept digital orders, and manage inventory for nearby customers.</p>
+                            
+                            <div class="tech-stack-list">
+                                <span>JavaScript ES6</span>
+                                <span>RESTful Specs</span>
+                                <span>CSS Grid</span>
+                                <span>LocalStorage</span>
+                            </div>
+
+                            <div class="project-actions">
+                                <a href="https://github.com/Mohan-das457/nearkart" target="_blank" rel="noopener noreferrer" class="btn-project-link">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                                    <span>GITHUB REPO</span>
+                                </a>
+                                <button class="btn-detail-modal" data-project="nearkart">DETAILS →</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 3: Smart Attendance Tracker -->
+                    <article class="project-card tilt-card glass-panel" data-category="college systems" data-tilt>
+                        <div class="project-banner project-bg-attendance">
+                            <div class="banner-overlay"></div>
+                            <span class="project-badge">ACADEMIC</span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-header-row">
+                                <span class="mono-id">BUILD / 03</span>
+                                <span class="status-pill status-active">● IN DEV SERVER</span>
+                            </div>
+                            <h3>Smart College Attendance</h3>
+                            <p>Full-stack attendance monitoring app built for MITS faculty & students. Tracks real-time session logs, calculates shortage thresholds, and generates monthly reports.</p>
+                            
+                            <div class="tech-stack-list">
+                                <span>Vite / React</span>
+                                <span>Node.js</span>
+                                <span>Express</span>
+                                <span>MongoDB</span>
+                            </div>
+
+                            <div class="project-actions">
+                                <a href="#" class="btn-project-link disabled" onclick="return false;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v10m0 0l-3-3m3 3l3-3"></path></svg>
+                                    <span>IN PROGRESS</span>
+                                </a>
+                                <button class="btn-detail-modal" data-project="attendance">DETAILS →</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Project Card 4: 3D Holographic Web Engine -->
+                    <article class="project-card tilt-card glass-panel" data-category="web systems" data-tilt>
+                        <div class="project-banner project-bg-engine">
+                            <div class="banner-overlay"></div>
+                            <span class="project-badge">3D & GRAPHICS</span>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-header-row">
+                                <span class="mono-id">BUILD / 04</span>
+                                <span class="status-pill status-live">● COMPLETED</span>
+                            </div>
+                            <h3>Cyber 3D Particle Mesh</h3>
+                            <p>High-performance Three.js WebGL particle generator & holographic geometry engine capable of rendering 5,000+ interactive nodes smoothly at 60 FPS.</p>
+                            
+                            <div class="tech-stack-list">
+                                <span>Three.js</span>
+                                <span>WebGL</span>
+                                <span>GLSL Shaders</span>
+                                <span>Web Audio</span>
+                            </div>
+
+                            <div class="project-actions">
+                                <a href="#" class="btn-project-link" id="view-3d-demo-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8m-4-4h8"></path></svg>
+                                    <span>INTERACT DEMO</span>
+                                </a>
+                                <button class="btn-detail-modal" data-project="graphics">DETAILS →</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS & TECHNICAL SPECS SECTION -->
+        <section id="skills" class="section-padding">
+            <div class="section-wrapper">
+                <div class="section-header">
+                    <span class="section-tag">// 04. TECHNICAL SPECIFICATIONS</span>
+                    <h2 class="section-heading">Skill <span class="gradient-text">Matrix & Stack</span></h2>
+                </div>
+
+                <div class="skills-wrapper">
+                    <!-- Technical Gauges List -->
+                    <div class="spec-gauges-container glass-panel">
+                        <div class="gauge-row">
+                            <div class="gauge-info">
+                                <span class="gauge-code">SKILL.01</span>
+                                <span class="gauge-name">Web Development (HTML/CSS/JS/React)</span>
+                                <span class="gauge-pct">92%</span>
+                            </div>
+                            <div class="gauge-track">
+                                <div class="gauge-fill" data-level="92"></div>
+                            </div>
+                        </div>
+
+                        <div class="gauge-row">
+                            <div class="gauge-info">
+                                <span class="gauge-code">SKILL.02</span>
+                                <span class="gauge-name">Data Structures & Programming (Java / C / C++)</span>
+                                <span class="gauge-pct">88%</span>
+                            </div>
+                            <div class="gauge-track">
+                                <div class="gauge-fill" data-level="88"></div>
+                            </div>
+                        </div>
+
+                        <div class="gauge-row">
+                            <div class="gauge-info">
+                                <span class="gauge-code">SKILL.03</span>
+                                <span class="gauge-name">3D Web Graphics (Three.js & Canvas API)</span>
+                                <span class="gauge-pct">82%</span>
+                            </div>
+                            <div class="gauge-track">
+                                <div class="gauge-fill" data-level="82"></div>
+                            </div>
+                        </div>
+
+                        <div class="gauge-row">
+                            <div class="gauge-info">
+                                <span class="gauge-code">SKILL.04</span>
+                                <span class="gauge-name">Backend Architecture & Databases (Node/Express/SQL)</span>
+                                <span class="gauge-pct">80%</span>
+                            </div>
+                            <div class="gauge-track">
+                                <div class="gauge-fill" data-level="80"></div>
+                            </div>
+                        </div>
+
+                        <div class="gauge-row">
+                            <div class="gauge-info">
+                                <span class="gauge-code">SKILL.05</span>
+                                <span class="gauge-name">Developer Tooling (Git / Linux CLI / Vite / Webpack)</span>
+                                <span class="gauge-pct">85%</span>
+                            </div>
+                            <div class="gauge-track">
+                                <div class="gauge-fill" data-level="85"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Tech Badges Grid -->
+                    <div class="tech-chips-grid">
+                        <div class="tech-chip"><span class="chip-dot"></span>HTML5 / Semantic</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>CSS3 / Modern Layouts</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>JavaScript (ES6+)</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Three.js / WebGL</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>React.js / Vite</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Java Programming</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>C / C++ Systems</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Data Structures</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Algorithms</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Git & GitHub</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Responsive UI/UX</div>
+                        <div class="tech-chip"><span class="chip-dot"></span>Web Audio API</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS & COLLEGE HONORS SECTION -->
+        <section id="achievements" class="section-padding">
+            <div class="section-wrapper">
+                <div class="section-header">
+                    <span class="section-tag">// 05. ACADEMIC & COLLEGE HONORS</span>
+                    <h2 class="section-heading">Recognitions & <span class="gradient-text">Impact</span></h2>
+                </div>
+
+                <div class="achievements-grid">
+                    <div class="achievement-card glass-panel tilt-card" data-tilt>
+                        <div class="achieve-badge">🏆 TOP TECH FEST WORK</div>
+                        <h3>Invicta 2K26 Platform Lead</h3>
+                        <p>Recognized by MITS CST Department for leading the frontend platform engineering of the national level technical symposium.</p>
+                        <span class="achieve-date">MITS Madanapalle · 2026</span>
+                    </div>
+
+                    <div class="achievement-card glass-panel tilt-card" data-tilt>
+                        <div class="achieve-badge">⚡ ALGORITHMIC CODING</div>
+                        <h3>Competitive Coding Contests</h3>
+                        <p>Consistent solver in college programming challenges across Data Structures, Dynamic Programming, and Graph algorithms.</p>
+                        <span class="achieve-date">College Rankings · 2025</span>
+                    </div>
+
+                    <div class="achievement-card glass-panel tilt-card" data-tilt>
+                        <div class="achieve-badge">🚀 INNOVATION HUB</div>
+                        <h3>NearKart Project Showcase</h3>
+                        <p>Project selected for college innovation display for bringing local commercial tech solutions to regional shopkeepers.</p>
+                        <span class="achieve-date">MITS Innovation Cell · 2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="section-padding">
+            <div class="section-wrapper">
+                <div class="section-header">
+                    <span class="section-tag">// 06. CORRESPONDENCE & COLLABORATION</span>
+                    <h2 class="section-heading">Let's Build <span class="gradient-text">Together</span></h2>
+                </div>
+
+                <div class="contact-layout">
+                    <div class="contact-info-panel glass-panel">
+                        <h3>Connect & Collaborate</h3>
+                        <p>Whether you have a project idea, want to collaborate on tech builds, or discuss computer science research — feel free to drop a line.</p>
+                        
+                        <div class="contact-details-list">
+                            <div class="contact-item">
+                                <span class="c-label">LOCATION</span>
+                                <span class="c-val">Madanapalle, Andhra Pradesh, India</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="c-label">INSTITUTION</span>
+                                <span class="c-val">MITS — Dept of Computer Science & Tech</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="c-label">GITHUB</span>
+                                <a href="https://github.com/Mohan-das457" target="_blank" rel="noopener" class="c-link">github.com/Mohan-das457</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="c-label">STATUS</span>
+                                <span class="c-val highlight-green">● OPEN FOR OPPS & RESEARCH</span>
+                            </div>
+                        </div>
+
+                        <div class="cli-quick-tip">
+                            <span>TIP: Press <kbd>Ctrl + K</kbd> to launch interactive CLI terminal anytime!</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-panel glass-panel">
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="form-name">YOUR NAME</label>
+                                <input type="text" id="form-name" placeholder="e.g. Rahul Sharma" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-email">YOUR EMAIL</label>
+                                <input type="email" id="form-email" placeholder="e.g. rahul@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-subject">SUBJECT</label>
+                                <input type="text" id="form-subject" placeholder="Project Collaboration / Tech Query" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="form-message">MESSAGE</label>
+                                <textarea id="form-message" rows="4" placeholder="Share your message details..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary glow-btn form-submit-btn">
+                                <span>TRANSMIT MESSAGE</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER & SHEET HUD -->
     <footer>
-        <p>© 2024 B. MOHAN — DRAWING SET COMPLETE, 5 OF 5 SHEETS · PRESS <span class="accent" style="color: var(--accent);">P</span> TO PLOT</p>
+        <div class="footer-wrapper">
+            <div class="footer-left">
+                <span>© 2026 B. MOHAN — COMPUTER SCIENCE & TECHNOLOGY</span>
+                <span class="footer-sub">MITS MADANAPALLE · 3D BLUEPRINT V2.0</span>
+            </div>
+            <div class="footer-right">
+                <a href="#home">TOP ↑</a>
+            </div>
+        </div>
     </footer>
 
-    <!-- Bottom title-block HUD -->
-    <div class="sheet-hud">
-        <span id="hud-section">01 · HOME</span>
-        <div class="progress-track"><div class="progress-fill" id="hud-progress"></div></div>
-        <span id="hud-scale">SCALE 1:1</span>
+    <!-- Bottom HUD Status Bar -->
+    <div class="hud-bar">
+        <div class="hud-section-name" id="hud-active-section">01 // HOME</div>
+        <div class="hud-scroll-track">
+            <div class="hud-scroll-fill" id="hud-scroll-fill"></div>
+        </div>
+        <div class="hud-system-status">SYS: 3D ENGINE ACTIVE</div>
     </div>
+
+    <!-- INTERACTIVE TERMINAL CLI MODAL -->
+    <div id="terminal-modal" class="modal-overlay">
+        <div class="terminal-window glass-panel">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="term-btn term-close" id="term-close-btn"></span>
+                    <span class="term-btn term-min"></span>
+                    <span class="term-btn term-max"></span>
+                </div>
+                <div class="terminal-title">mohan@mits-cst-terminal:~ (bash)</div>
+                <button class="term-x-btn" id="term-x-close">&times;</button>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <p class="term-line term-welcome">B. MOHAN INTERACTIVE CLI SYSTEM [v2.0.4]</p>
+                <p class="term-line term-welcome">Type <span class="term-cmd-highlight">'help'</span> for available commands or <span class="term-cmd-highlight">'matrix'</span> for rain mode.</p>
+                <br>
+            </div>
+            <div class="terminal-input-row">
+                <span class="term-prompt">mohan@mits:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="Type a command (e.g. help, skills, projects)..." autofocus>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECT DETAILS MODAL -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="project-modal-window glass-panel">
+            <button class="modal-close-btn" id="proj-modal-close">&times;</button>
+            <div class="project-modal-content" id="proj-modal-body">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container"></div>
 
     <script src="script.js"></script>
 </body>
